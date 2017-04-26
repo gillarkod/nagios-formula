@@ -29,11 +29,11 @@ include_dir={{nrpe_map.get('cfg_dir')}}
 {%- if nrpe.nrpe_commands is defined %}
 {%- if nrpe.get('nrpe_commands') is mapping %}
 {%- for nrpe_command in nrpe.get('nrpe_commands').values() %}
-{{ nrpe_command }}
+command[{{ nrpe_command.get('name') }}]={{ nrpe_map.get('plugin_dir') }}/{{ nrpe_command.get('plugin') }}{% if nrpe_command.get('args') != None %} {{ nrpe_command.get('args') }}{% endif %}
 {%- endfor %}
 {%- elif nrpe.get('nrpe_commands') is iterable %}
 {%- for nrpe_command in nrpe.get('nrpe_commands') %}
-{{ nrpe_command }}
+command[{{ nrpe_command.get('name') }}]={{ nrpe_map.get('plugin_dir') }}/{{ nrpe_command.get('plugin') }}{% if nrpe_command.get('args') != None %} {{ nrpe_command.get('args') }}{% endif %}
 {%- endfor %}
 {%- endif %}
 {%- endif %}
