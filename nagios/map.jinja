@@ -95,7 +95,7 @@
         'service': 'nrpe',
         'user': 'nrpe',
     },
-    'Debian': {
+    'Ubuntu': {
         'cfg_dir': '/etc/nagios/nrpe.d',
         'group': 'nagios',
         'plugin': 'nagios-plugins',
@@ -105,7 +105,7 @@
         'user': 'nagios',
         'pid_file': '/var/run/nagios/nrpe.pid',
     },
-    'RedHat': {
+    'CentOS': {
         'group': 'nagios',
         'plugin': 'nagios-plugins-all',
         'plugin_dir': '/usr/lib64/nagios/plugins',
@@ -114,7 +114,16 @@
         'user': 'nagios',
         'pid_file': '/var/run/nrpe.pid',
     },
-}, merge=salt['pillar.get']('nagios:lookup:nrpe')) %}
+    'Fedora': {
+        'group': 'nagios',
+        'plugin': 'nagios-plugins-all',
+        'plugin_dir': '/usr/lib64/nagios/plugins',
+        'server': 'nrpe',
+        'service': 'nrpe',
+        'user': 'nagios',
+        'pid_file': '/var/run/nrpe/nrpe.pid',
+    },
+}, grain='os', merge=salt['pillar.get']('nagios:lookup:nrpe')) %}
 
 {% set nsca = salt['grains.filter_by']({
     'Arch': {
